@@ -3,6 +3,6 @@
   "version": "1.0.0",
   "private": true,
   "scripts": {
-    "build": "rm -rf .git .claude _archive team && echo 'Cleaned up artifacts' && exit 0"
+    "build": "mkdir -p dist && cp -r * dist/ 2>/dev/null || true"
   }
 }
