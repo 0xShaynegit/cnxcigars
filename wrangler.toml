@@ -3,9 +3,3 @@ compatibility_date = "2026-06-18"
 
 [assets]
 directory = "."
-binding = "ASSETS"
-
-# This forces Cloudflare to ignore these specific folders during upload
-[site]
-bucket = "."
-exclude = [".git", ".claude", "node_modules", "_archive", "team", "*.md"]

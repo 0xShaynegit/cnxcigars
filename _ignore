@@ -1,0 +1,6 @@
+.git
+.claude
+node_modules
+_archive
+team
+*.md
