@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+<html lang="en-AU" class="no-js">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <!-- Swap no-js to js as the very first thing so CSS can branch on it -->
+  <script>document.documentElement.className = document.documentElement.className.replace('no-js', 'js');</script>
+
+  <!-- ===== TITLE + DESCRIPTION (Devon/Petra fill per page) ===== -->
+  <title>PAGE_TITLE | CNX Cigars</title>
+  <meta name="description" content="PAGE_META_DESCRIPTION">
+
+  <!-- ===== CANONICAL (Petra sets absolute URL per page) ===== -->
+  <link rel="canonical" href="https://CANONICAL_URL_PLACEHOLDER/">
+
+  <!-- ===== OPEN GRAPH ===== -->
+  <meta property="og:type" content="website">
+  <meta property="og:site_name" content="CNX Cigars">
+  <meta property="og:title" content="PAGE_TITLE | CNX Cigars">
+  <meta property="og:description" content="PAGE_META_DESCRIPTION">
+  <meta property="og:url" content="https://CANONICAL_URL_PLACEHOLDER/">
+  <meta property="og:image" content="https://CANONICAL_URL_PLACEHOLDER/images/og-default.jpg">
+  <meta property="og:locale" content="en_AU">
+
+  <!-- ===== TWITTER CARD ===== -->
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="PAGE_TITLE | CNX Cigars">
+  <meta name="twitter:description" content="PAGE_META_DESCRIPTION">
+  <meta name="twitter:image" content="https://CANONICAL_URL_PLACEHOLDER/images/og-default.jpg">
+
+  <!-- ===== FAVICON (placeholder file; see images/FAVICON_NOTE.txt) ===== -->
+  <link rel="icon" href="favicon.ico" sizes="any">
+  <link rel="icon" href="images/favicon.svg" type="image/svg+xml">
+  <link rel="apple-touch-icon" href="images/apple-touch-icon.png">
+
+  <!-- ===== FONT PRELOAD (both variable woff2; adjust ../ depth in subdirs) ===== -->
+  <link rel="preload" href="fonts/Playfair-Variable.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="preload" href="fonts/Inter-Variable.woff2" as="font" type="font/woff2" crossorigin>
+
+  <!-- ===== STYLES (core first, then responsive layer) ===== -->
+  <link rel="stylesheet" href="css/style.css">
+  <link rel="stylesheet" href="css/responsive.css">
+
+  <!-- ===== JSON-LD (Petra fills; LocalBusiness phone is a PLACEHOLDER) =====
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "LocalBusiness",
+    "name": "CNX Cigars | International Cigar Bar & Lounge | Cigars Chiang Mai Co., Ltd",
+    "address": {
+      "@type": "PostalAddress",
+      "streetAddress": "2nd Floor, 45 Nimmana Haeminda Rd Lane 11, Tambon Su Thep",
+      "addressLocality": "Mueang Chiang Mai",
+      "addressRegion": "Chiang Mai",
+      "postalCode": "50200",
+      "addressCountry": "TH"
+    },
+    "telephone": "PHONE_PLACEHOLDER",
+    "url": "https://CANONICAL_URL_PLACEHOLDER/"
+  }
+  </script>
+  ===== END JSON-LD ===== -->
+
+  <!-- ===== CLOUDFLARE WEB ANALYTICS (Devon standard; replace token) =====
+       PLACEHOLDER: insert real CF Web Analytics token before ship -->
+  <script defer src="https://static.cloudflareinsights.com/beacon.min.js"
+    data-cf-beacon='{"token": "CLOUDFLARE_ANALYTICS_TOKEN_PLACEHOLDER"}'></script>
+
+  <!-- ===== GA4 (replace measurement ID) =====
+       PLACEHOLDER: insert real GA4 ID (G-XXXXXXXXXX) before ship -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=GA4_MEASUREMENT_ID_PLACEHOLDER"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'GA4_MEASUREMENT_ID_PLACEHOLDER');
+  </script>
+</head>
+
+<body>
+  <a class="skip-link" href="#main">Skip to content</a>
+
+  <!-- ===== AGE GATE =====
+       Markup default is hidden. Devon's JS removes [hidden] on first load when
+       localStorage has no confirmation, then stores it on Enter. No-JS safe:
+       stays hidden so the page is never blocked when scripts fail. -->
+  <div class="age-gate" id="age-gate" role="dialog" aria-modal="true"
+       aria-labelledby="age-gate-title" aria-describedby="age-gate-copy" hidden>
+    <div class="age-gate__card">
+      <h2 class="age-gate__title" id="age-gate-title">A quiet word before you enter</h2>
+      <p class="age-gate__copy" id="age-gate-copy">
+        CNX Cigars is a space for adults. Please confirm you are of legal age to view
+        tobacco-related content where you live. We keep this gentle, but the law is the law.
+      </p>
+      <div class="age-gate__actions">
+        <button class="btn btn-primary" type="button" data-age-confirm>I am of legal age</button>
+        <a class="btn btn-secondary" href="https://www.google.com">Leave</a>
+      </div>
+    </div>
+  </div>
+
+  <!-- ===== HEADER / NAV ===== -->
+  <header class="site-header">
+    <div class="container site-header__inner">
+      <a class="site-logo" href="index.html" aria-label="CNX Cigars home">CNX Cigars</a>
+
+      <button class="nav-toggle" type="button" aria-expanded="false"
+              aria-controls="primary-nav" aria-label="Open menu" data-nav-toggle>
+        <span class="nav-toggle__bars" aria-hidden="true"></span>
+      </button>
+
+      <nav class="site-nav" id="primary-nav" aria-label="Primary" data-nav data-open="false">
+        <ul class="site-nav__list">
+          <li><a class="site-nav__link" href="about.html">About</a></li>
+          <li><a class="site-nav__link" href="cigars.html">Cigars</a></li>
+          <li><a class="site-nav__link" href="services.html">Services</a></li>
+          <li><a class="site-nav__link" href="contact.html">Contact</a></li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+
+  <!-- ===== MAIN (Devon replaces this block per page) ===== -->
+  <main id="main">
+    <!-- PAGE CONTENT GOES HERE -->
+  </main>
+
+  <!-- ===== FOOTER ===== -->
+  <footer class="site-footer">
+    <div class="container">
+      <div class="site-footer__grid">
+
+        <!-- NAP block (exact GBP; phone is a flagged placeholder) -->
+        <div class="footer-col">
+          <p class="footer-logo">CNX Cigars</p>
+          <address class="footer-nap">
+            <strong>CNX Cigars | International Cigar Bar &amp; Lounge | Cigars Chiang Mai Co., Ltd</strong><br>
+            2nd Floor, 45 Nimmana Haeminda Rd Lane 11,<br>
+            Tambon Su Thep, Mueang Chiang Mai,<br>
+            Chiang Mai 50200, Thailand<br>
+            <!-- PHONE PLACEHOLDER: replace before ship (footer NAP + schema + WhatsApp) -->
+            Phone: <a href="tel:PHONE_PLACEHOLDER">PHONE_PLACEHOLDER</a>
+          </address>
+        </div>
+
+        <!-- Quick links -->
+        <div class="footer-col">
+          <h2 class="footer-col__heading">Explore</h2>
+          <ul class="footer-links">
+            <li><a href="about.html">About</a></li>
+            <li><a href="cigars.html">Cigars</a></li>
+            <li><a href="services.html">Services</a></li>
+            <li><a href="faq.html">FAQ</a></li>
+            <li><a href="contact.html">Contact</a></li>
+          </ul>
+        </div>
+
+        <!-- Hours (placeholder until confirmed) -->
+        <div class="footer-col">
+          <h2 class="footer-col__heading">Hours</h2>
+          <p class="footer-nap">
+            <!-- HOURS PLACEHOLDER: confirm with venue before ship -->
+            Open daily<br>
+            Hours to be confirmed
+          </p>
+          <div class="footer-social">
+            <!-- Social links carry UTM params for lounge-visit attribution -->
+            <a href="https://www.facebook.com/?utm_source=website&amp;utm_medium=footer&amp;utm_campaign=social"
+               rel="noopener" target="_blank">Facebook</a>
+            <a href="https://www.instagram.com/?utm_source=website&amp;utm_medium=footer&amp;utm_campaign=social"
+               rel="noopener" target="_blank">Instagram</a>
+          </div>
+        </div>
+
+        <!-- Newsletter signup repeat -->
+        <div class="footer-col">
+          <h2 class="footer-col__heading">Stay in touch</h2>
+          <form class="newsletter" action="FORM_ENDPOINT_PLACEHOLDER" method="post" novalidate>
+            <div class="field newsletter__row">
+              <label class="visually-hidden" for="footer-email">Email address</label>
+              <input class="input" type="email" id="footer-email" name="email"
+                     placeholder="you@example.com" required>
+              <button class="btn btn-primary" type="submit">Subscribe for Updates</button>
+            </div>
+            <p class="field__hint">No noise. The occasional note on tastings and new arrivals.</p>
+          </form>
+        </div>
+
+      </div>
+
+      <div class="footer-bottom">
+        <p>&copy; <span data-year>2026</span> Cigars Chiang Mai Co., Ltd. All rights reserved.</p>
+        <nav class="footer-bottom__legal" aria-label="Legal">
+          <a href="privacy.html">Privacy</a>
+          <a href="terms.html">Terms</a>
+        </nav>
+      </div>
+    </div>
+  </footer>
+
+  <!-- ===== SCRIPTS (Devon adds site.js; deferred) ===== -->
+  <script defer src="js/site.js"></script>
+</body>
+</html>

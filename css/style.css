@@ -1,0 +1,1128 @@
+/* ==========================================================================
+   CNX Cigars Lounge - Core System (style.css)
+   Dark obsidian rebuild. Colour pivot 18/06/2026 per rules.md DESIGN PIVOT.
+   Type scale, spacing, animation tokens unchanged from Jules's original brief.
+   Vanilla CSS only. Mobile-first. Australian English. Zero frameworks.
+   ========================================================================== */
+
+/* --------------------------------------------------------------------------
+   1. Fonts (local woff2, font-display: swap, full variable weight ranges)
+   -------------------------------------------------------------------------- */
+@font-face {
+  font-family: "Playfair Display";
+  src: url("../fonts/Playfair-Variable.woff2") format("woff2");
+  font-weight: 400 700;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Inter";
+  src: url("../fonts/Inter-Variable.woff2") format("woff2");
+  font-weight: 400 600;
+  font-style: normal;
+  font-display: swap;
+}
+
+/* --------------------------------------------------------------------------
+   2. Design Tokens (:root custom properties)
+   Colour: dark obsidian palette (DESIGN PIVOT 18/06/2026).
+   Type, spacing, animation: unchanged from Jules's locked brief.
+   -------------------------------------------------------------------------- */
+:root {
+  /* Dark colour system */
+  --bg-dark: #0a0a0a;                           /* obsidian canvas */
+  --bg-surface: #141414;                        /* card / section elevation */
+  --bg-footer: #050505;                         /* footer background */
+  --text-primary: #f5f3f0;                      /* rich ivory */
+  --text-secondary: #a0a0a0;                    /* platinum secondary */
+  --accent-copper: #b8860b;                     /* burnished copper */
+  --accent-gold: #d4af37;                       /* premium highlight */
+  --border-subtle: rgba(255, 255, 255, 0.04);   /* hairline borders */
+
+  /* Legacy palette tokens kept for badge + focus ring compatibility */
+  --color-charcoal: #1a1a1a;
+  --color-cream: #f5f3f0;
+  --color-copper: #b8860b;
+  --color-copper-dark: #8a6109;
+  --color-gold: #d4af37;
+  --color-forest: #2d5016;
+  --color-neutral-light: #e8e8e8;
+  --color-neutral-dark: #333333;
+  --color-white: #ffffff;
+
+  /* Semantic role aliases pointing to dark palette */
+  --color-text: var(--text-primary);
+  --color-text-muted: var(--text-secondary);
+  --color-bg: var(--bg-dark);
+  --color-surface: var(--bg-surface);
+  --color-border: var(--border-subtle);
+  --color-accent: var(--accent-copper);
+  --color-accent-strong: var(--accent-copper);
+  --color-link: var(--accent-copper);
+  --color-link-hover: var(--accent-gold);
+
+  /* Type families */
+  --font-display: "Playfair Display", Georgia, "Times New Roman", serif;
+  --font-body: "Inter", system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+
+  /* Fluid type scale (clamp, mobile-first) - locked from Jules */
+  --type-display: clamp(2.5rem, 6vw + 0.5rem, 4.5rem);
+  --type-h1: clamp(2rem, 4vw + 0.5rem, 3.25rem);
+  --type-h2: clamp(1.625rem, 2.5vw + 0.5rem, 2.5rem);
+  --type-h3: clamp(1.375rem, 1.5vw + 0.5rem, 1.875rem);
+  --type-h4: clamp(1.125rem, 1vw + 0.5rem, 1.375rem);
+  --type-h5: 0.8125rem;
+  --type-h6: 0.75rem;
+  --type-body: clamp(1rem, 0.5vw + 0.9rem, 1.125rem);
+  --type-body-lead: clamp(1.125rem, 1vw + 1rem, 1.375rem);
+  --type-small: 0.875rem;
+
+  /* Line heights */
+  --lh-display: 1.05;
+  --lh-h1: 1.1;
+  --lh-h2: 1.15;
+  --lh-h3: 1.2;
+  --lh-h4: 1.25;
+  --lh-body: 1.65;
+  --lh-lead: 1.55;
+  --lh-small: 1.5;
+
+  /* Tracking */
+  --track-display: -0.02em;
+  --track-heading: -0.01em;
+  --track-eyebrow: 0.12em;
+  --track-eyebrow-minor: 0.1em;
+
+  /* Spacing scale (8px base, rem) - locked from Jules */
+  --space-xs: 0.5rem;
+  --space-sm: 1rem;
+  --space-md: 1.5rem;
+  --space-lg: 2.5rem;
+  --space-xl: 4rem;
+  --space-2xl: 6rem;
+
+  /* Section vertical rhythm */
+  --section-pad-y: clamp(4rem, 8vw, 7.5rem);
+
+  /* Layout */
+  --container-max: 75rem;
+  --container-pad-x: clamp(1.25rem, 5vw, 3rem);
+  --measure: 65ch;
+  --radius: 0px;       /* sharp corners - dark luxury spec */
+  --radius-pill: 999px;
+
+  /* Focus ring (copper) */
+  --focus-ring: 0 0 0 3px rgba(184, 134, 11, 0.4);
+
+  /* Animation tokens - locked from Jules */
+  --ease-out: cubic-bezier(0.16, 1, 0.3, 1);
+  --ease-standard: cubic-bezier(0.4, 0, 0.2, 1);
+  --duration-fast: 180ms;
+  --duration-base: 320ms;
+  --duration-slow: 520ms;
+}
+
+/* --------------------------------------------------------------------------
+   3. Modern CSS Reset
+   -------------------------------------------------------------------------- */
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+* {
+  margin: 0;
+}
+
+html {
+  -webkit-text-size-adjust: 100%;
+  text-size-adjust: 100%;
+  scroll-behavior: smooth;
+}
+
+html,
+body {
+  overflow-x: hidden;
+}
+
+body {
+  min-height: 100vh;
+  font-family: var(--font-body);
+  font-size: var(--type-body);
+  line-height: var(--lh-body);
+  color: var(--text-primary);
+  background-color: var(--bg-dark);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-rendering: optimizeLegibility;
+}
+
+img,
+picture,
+video,
+canvas,
+svg {
+  display: block;
+  max-width: 100%;
+  height: auto;
+}
+
+input,
+button,
+textarea,
+select {
+  font: inherit;
+  color: inherit;
+}
+
+button {
+  background: none;
+  border: none;
+  cursor: pointer;
+}
+
+ul,
+ol {
+  list-style: none;
+  padding: 0;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+p,
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  overflow-wrap: break-word;
+}
+
+:focus-visible {
+  outline: 2px solid var(--accent-copper);
+  outline-offset: 2px;
+}
+
+/* --------------------------------------------------------------------------
+   4. Base Typography
+   -------------------------------------------------------------------------- */
+h1,
+h2,
+h3,
+h4 {
+  font-family: var(--font-display);
+  font-weight: 600;
+  letter-spacing: var(--track-heading);
+  color: #ffffff;
+}
+
+h1 {
+  font-size: var(--type-h1);
+  line-height: var(--lh-h1);
+}
+
+h2 {
+  font-size: var(--type-h2);
+  line-height: var(--lh-h2);
+}
+
+h3 {
+  font-size: var(--type-h3);
+  line-height: var(--lh-h3);
+  font-weight: 500;
+}
+
+h4 {
+  font-size: var(--type-h4);
+  line-height: var(--lh-h4);
+  font-weight: 500;
+}
+
+h5,
+h6 {
+  font-family: var(--font-body);
+  font-weight: 600;
+  text-transform: uppercase;
+  color: var(--text-primary);
+}
+
+h5 {
+  font-size: var(--type-h5);
+  letter-spacing: var(--track-eyebrow);
+}
+
+h6 {
+  font-size: var(--type-h6);
+  letter-spacing: var(--track-eyebrow-minor);
+}
+
+.display {
+  font-family: var(--font-display);
+  font-size: var(--type-display);
+  font-weight: 600;
+  line-height: var(--lh-display);
+  letter-spacing: var(--track-display);
+}
+
+p {
+  font-size: var(--type-body);
+  line-height: var(--lh-body);
+  max-width: var(--measure);
+}
+
+.body-lead {
+  font-size: var(--type-body-lead);
+  line-height: var(--lh-lead);
+  color: var(--text-secondary);
+  max-width: var(--measure);
+}
+
+.small,
+small {
+  font-size: var(--type-small);
+  line-height: var(--lh-small);
+  color: var(--text-secondary);
+}
+
+/* Eyebrow: copper, uppercase, letter-spaced */
+.eyebrow {
+  display: inline-block;
+  font-family: var(--font-body);
+  font-size: 0.75rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.25em;
+  color: var(--accent-copper);
+  margin-bottom: var(--space-xs);
+}
+
+/* Inline links */
+.prose a,
+a.link {
+  color: var(--accent-copper);
+  text-decoration: none;
+  border-bottom: 1px solid transparent;
+  padding-bottom: 1px;
+  transition:
+    color var(--duration-fast) var(--ease-standard),
+    border-color var(--duration-fast) var(--ease-standard);
+}
+
+.prose a:hover,
+a.link:hover {
+  color: var(--accent-gold);
+  border-bottom-color: var(--accent-copper);
+}
+
+/* --------------------------------------------------------------------------
+   5. Layout helpers
+   -------------------------------------------------------------------------- */
+.container {
+  width: 100%;
+  max-width: var(--container-max);
+  margin-inline: auto;
+  padding-inline: var(--container-pad-x);
+}
+
+.section {
+  padding-block: var(--section-pad-y);
+  border-bottom: 1px solid var(--border-subtle);
+}
+
+.section--alt {
+  background-color: var(--bg-surface);
+}
+
+.stack > * + * {
+  margin-top: var(--space-md);
+}
+
+.visually-hidden {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
+
+.skip-link {
+  position: absolute;
+  left: var(--space-sm);
+  top: -3rem;
+  z-index: 1000;
+  padding: var(--space-xs) var(--space-sm);
+  background: var(--accent-copper);
+  color: #000000;
+  transition: top var(--duration-fast) var(--ease-standard);
+}
+
+.skip-link:focus {
+  top: var(--space-sm);
+}
+
+/* --------------------------------------------------------------------------
+   6. Buttons
+   Dark spec: transparent + copper border, ivory label, uppercase, 0.2em tracking.
+   Hover: copper fill, black label, copper glow, translateY(-2px).
+   -------------------------------------------------------------------------- */
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-xs);
+  min-height: 3rem;
+  padding: 1.1rem 2.5rem;
+  font-family: var(--font-body);
+  font-size: 0.8rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.2em;
+  line-height: 1;
+  border: 1px solid transparent;
+  cursor: pointer;
+  text-align: center;
+  transition:
+    background-color var(--duration-fast) var(--ease-out),
+    color var(--duration-fast) var(--ease-out),
+    border-color var(--duration-fast) var(--ease-out),
+    transform 160ms var(--ease-out),
+    box-shadow 160ms var(--ease-out);
+}
+
+.btn:focus-visible {
+  outline: none;
+  box-shadow: var(--focus-ring);
+}
+
+.btn:active {
+  transform: scale(0.97);
+}
+
+/* Primary: transparent fill, copper border, ivory label */
+.btn-primary {
+  background: transparent;
+  border-color: var(--accent-copper);
+  color: var(--text-primary);
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .btn-primary:hover {
+    background: var(--accent-copper);
+    color: #000000;
+    box-shadow: 0 0 25px rgba(184, 134, 11, 0.35);
+    transform: translateY(-2px);
+  }
+}
+
+.btn-primary:active {
+  transform: scale(0.97);
+  box-shadow: none;
+}
+
+/* Secondary: faint white border, platinum label, white on hover */
+.btn-secondary {
+  background: transparent;
+  border-color: rgba(255, 255, 255, 0.15);
+  color: var(--text-secondary);
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .btn-secondary:hover {
+    border-color: #ffffff;
+    color: #ffffff;
+    transform: translateY(-2px);
+  }
+}
+
+.btn-secondary:active {
+  transform: scale(0.97);
+}
+
+/* Ghost: no border, copper label */
+.btn-ghost {
+  background: transparent;
+  border-color: transparent;
+  color: var(--accent-copper);
+  padding-inline: var(--space-xs);
+  letter-spacing: var(--track-eyebrow-minor);
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .btn-ghost:hover {
+    color: var(--accent-gold);
+  }
+}
+
+/* --------------------------------------------------------------------------
+   7. Cards (dark surface, border-driven)
+   -------------------------------------------------------------------------- */
+.cigar-card {
+  display: flex;
+  flex-direction: column;
+  background-color: var(--bg-surface);
+  border: 1px solid var(--border-subtle);
+  overflow: hidden;
+  transition:
+    transform var(--duration-base) var(--ease-standard),
+    border-color var(--duration-base) var(--ease-standard);
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .cigar-card:hover {
+    border-color: var(--accent-copper);
+    transform: translateY(-4px);
+  }
+}
+
+.cigar-card__media {
+  aspect-ratio: 4 / 3;
+  background-color: var(--bg-surface);
+  overflow: hidden;
+}
+
+.cigar-card__media img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  filter: grayscale(20%) contrast(110%);
+  transition: transform 0.6s var(--ease-standard);
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .cigar-card:hover .cigar-card__media img {
+    transform: scale(1.03);
+  }
+}
+
+.cigar-card__body {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-xs);
+  padding: 1.75rem;
+}
+
+.cigar-card__title {
+  font-family: var(--font-display);
+  font-size: var(--type-h4);
+  font-weight: 500;
+  line-height: var(--lh-h4);
+  color: #ffffff;
+}
+
+.cigar-card__badges {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-xs);
+}
+
+.cigar-card__note {
+  font-size: var(--type-small);
+  line-height: var(--lh-small);
+  color: var(--text-secondary);
+  font-weight: 300;
+  max-width: none;
+}
+
+.cigar-card__meta {
+  font-size: var(--type-small);
+  color: var(--text-secondary);
+}
+
+/* Testimonial card: dark surface */
+.testimonial {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-md);
+  padding: var(--space-lg);
+  background-color: var(--bg-surface);
+  border: 1px solid var(--border-subtle);
+}
+
+.testimonial__quote {
+  font-family: var(--font-display);
+  font-size: var(--type-h4);
+  font-weight: 400;
+  font-style: italic;
+  line-height: 1.4;
+  color: var(--text-primary);
+  max-width: var(--measure);
+}
+
+.testimonial__attribution {
+  font-family: var(--font-body);
+  font-size: var(--type-small);
+  color: var(--text-secondary);
+}
+
+/* --------------------------------------------------------------------------
+   8. Badges (dark palette variants)
+   -------------------------------------------------------------------------- */
+.badge {
+  display: inline-flex;
+  align-items: center;
+  font-family: var(--font-body);
+  font-size: var(--type-h6);
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: var(--track-eyebrow-minor);
+  padding: 0.25rem 0.6rem;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  color: var(--text-secondary);
+  line-height: 1;
+}
+
+.badge--mild {
+  border-color: rgba(255, 255, 255, 0.12);
+  color: var(--text-secondary);
+}
+
+.badge--medium {
+  border-color: rgba(255, 255, 255, 0.2);
+  color: var(--text-primary);
+}
+
+.badge--full {
+  border-color: rgba(184, 134, 11, 0.4);
+  color: var(--accent-copper);
+}
+
+.badge--origin {
+  border-color: rgba(184, 134, 11, 0.3);
+  color: var(--accent-copper);
+}
+
+/* --------------------------------------------------------------------------
+   9. Forms (dark surface inputs)
+   -------------------------------------------------------------------------- */
+.field {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-xs);
+}
+
+.field__label {
+  font-family: var(--font-body);
+  font-size: var(--type-small);
+  font-weight: 600;
+  color: var(--text-secondary);
+}
+
+.input,
+.textarea,
+.select {
+  width: 100%;
+  padding: 0.8rem 1.2rem;
+  font-family: var(--font-body);
+  font-size: var(--type-body);
+  color: #ffffff;
+  background-color: #111111;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  transition:
+    border-color var(--duration-fast) var(--ease-standard),
+    box-shadow var(--duration-fast) var(--ease-standard);
+}
+
+.textarea {
+  min-height: 8rem;
+  resize: vertical;
+}
+
+.input::placeholder,
+.textarea::placeholder {
+  color: var(--text-secondary);
+  opacity: 0.7;
+}
+
+.input:focus,
+.textarea:focus,
+.select:focus {
+  outline: none;
+  border-color: var(--accent-copper);
+  box-shadow: var(--focus-ring);
+}
+
+.select option {
+  background-color: #111111;
+  color: #ffffff;
+}
+
+.field--error .input,
+.field--error .textarea,
+.field--error .select {
+  border-color: var(--accent-copper);
+}
+
+.field__error {
+  font-size: var(--type-small);
+  color: var(--text-primary);
+}
+
+.field__hint {
+  font-size: var(--type-small);
+  color: var(--text-secondary);
+  margin-top: 0.75rem;
+  max-width: none;
+}
+
+.newsletter {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-xs);
+}
+
+.newsletter__row {
+  display: flex;
+  gap: 0.5rem;
+  flex-wrap: wrap;
+}
+
+.newsletter__row .input {
+  flex: 1 1 14rem;
+}
+
+/* --------------------------------------------------------------------------
+   10. Hero (100vh, real photo, dark gradient scrim)
+   -------------------------------------------------------------------------- */
+.hero {
+  position: relative;
+  isolation: isolate;
+  display: flex;
+  align-items: center;
+  height: 100vh;
+  min-height: 36rem;
+  background-color: var(--bg-dark);
+  overflow: hidden;
+}
+
+.hero__media {
+  position: absolute;
+  inset: 0;
+  z-index: -2;
+}
+
+.hero__media img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+/* Scrim: rgba 0.45 at top, 0.95 at bottom - matches dark-direction-reference.html */
+.hero__scrim {
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  background: linear-gradient(
+    to bottom,
+    rgba(10, 10, 10, 0.45) 0%,
+    rgba(10, 10, 10, 0.65) 50%,
+    rgba(10, 10, 10, 0.95) 100%
+  );
+}
+
+.hero__content {
+  max-width: 47rem;
+  color: var(--text-primary);
+}
+
+.hero__content .eyebrow {
+  color: var(--accent-gold);
+}
+
+.hero__title {
+  font-family: var(--font-display);
+  font-size: var(--type-display);
+  font-weight: 600;
+  line-height: var(--lh-display);
+  letter-spacing: var(--track-display);
+  color: #ffffff;
+}
+
+.hero__lead {
+  margin-top: var(--space-md);
+  font-size: var(--type-body-lead);
+  line-height: var(--lh-lead);
+  color: var(--text-secondary);
+  max-width: 38rem;
+}
+
+.hero__actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-sm);
+  margin-top: var(--space-lg);
+}
+
+/* --------------------------------------------------------------------------
+   11. Site Header (absolute over hero, dark gradient fade)
+   -------------------------------------------------------------------------- */
+.site-header {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  z-index: 100;
+  padding: 2rem 0;
+  background: linear-gradient(to bottom, rgba(10, 10, 10, 0.8), transparent);
+}
+
+/* Sticky header used on interior pages (cigars.html has its own hero with a shorter class) */
+.site-header--sticky {
+  position: sticky;
+  top: 0;
+  background-color: rgba(10, 10, 10, 0.96);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  border-bottom: 1px solid var(--border-subtle);
+}
+
+.site-header__inner {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-md);
+  min-height: 4.5rem;
+}
+
+.site-logo {
+  display: flex;
+  align-items: center;
+  gap: var(--space-xs);
+}
+
+.site-logo__img {
+  height: 2.25rem;
+  width: auto;
+}
+
+.site-logo__wordmark {
+  font-family: var(--font-display);
+  font-size: var(--type-h4);
+  font-weight: 600;
+  letter-spacing: var(--track-heading);
+  color: #ffffff;
+}
+
+.site-nav__list {
+  display: flex;
+  align-items: center;
+  gap: var(--space-lg);
+}
+
+.site-nav__link {
+  font-family: var(--font-body);
+  font-size: 0.85rem;
+  font-weight: 500;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--text-secondary);
+  padding-block: var(--space-xs);
+  transition: color var(--duration-fast) var(--ease-standard);
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .site-nav__link:hover {
+    color: var(--accent-copper);
+  }
+}
+
+.site-nav__link[aria-current="page"] {
+  color: var(--accent-copper);
+}
+
+/* Hamburger toggle */
+.nav-toggle {
+  display: none;
+  width: 3rem;
+  height: 3rem;
+  align-items: center;
+  justify-content: center;
+}
+
+.nav-toggle__bars,
+.nav-toggle__bars::before,
+.nav-toggle__bars::after {
+  content: "";
+  display: block;
+  width: 1.5rem;
+  height: 2px;
+  background-color: #ffffff;
+  transition: transform var(--duration-fast) var(--ease-standard);
+}
+
+.nav-toggle__bars {
+  position: relative;
+}
+
+.nav-toggle__bars::before {
+  position: absolute;
+  top: -6px;
+}
+
+.nav-toggle__bars::after {
+  position: absolute;
+  top: 6px;
+}
+
+/* --------------------------------------------------------------------------
+   12. Footer (#050505, 4-col grid, copper headings)
+   -------------------------------------------------------------------------- */
+.site-footer {
+  background-color: var(--bg-footer);
+  color: var(--text-secondary);
+  border-top: 1px solid var(--border-subtle);
+  padding-block: 5rem 3rem;
+}
+
+.site-footer a {
+  color: var(--text-secondary);
+  transition: color var(--duration-fast) var(--ease-standard);
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .site-footer a:hover {
+    color: #ffffff;
+  }
+}
+
+.site-footer__grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: var(--space-lg);
+}
+
+.footer-col__heading {
+  font-family: var(--font-body);
+  font-size: 0.8rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.15em;
+  color: var(--accent-copper);
+  margin-bottom: 1.5rem;
+}
+
+.footer-logo {
+  display: flex;
+  align-items: center;
+  gap: var(--space-xs);
+  margin-bottom: var(--space-sm);
+}
+
+.footer-logo__img {
+  height: 2rem;
+  width: auto;
+}
+
+.footer-logo__wordmark {
+  font-family: var(--font-display);
+  font-size: var(--type-h4);
+  font-weight: 600;
+  color: #ffffff;
+}
+
+.footer-nap {
+  font-size: var(--type-small);
+  line-height: 1.7;
+  color: var(--text-secondary);
+  font-style: normal;
+  max-width: 22rem;
+}
+
+.footer-nap strong {
+  color: #ffffff;
+}
+
+.footer-links li + li {
+  margin-top: var(--space-xs);
+}
+
+.footer-links a {
+  font-size: var(--type-small);
+}
+
+.footer-social {
+  display: flex;
+  gap: var(--space-md);
+  margin-top: var(--space-sm);
+}
+
+.footer-bottom {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-sm) var(--space-md);
+  align-items: center;
+  justify-content: space-between;
+  margin-top: var(--space-lg);
+  padding-top: var(--space-md);
+  border-top: 1px solid var(--border-subtle);
+  font-size: var(--type-small);
+  color: var(--text-secondary);
+}
+
+.footer-bottom a {
+  color: var(--text-secondary);
+}
+
+.footer-bottom__legal {
+  display: flex;
+  gap: var(--space-md);
+}
+
+/* --------------------------------------------------------------------------
+   13. Age-gate modal (charcoal overlay, dark card)
+   -------------------------------------------------------------------------- */
+.age-gate {
+  position: fixed;
+  inset: 0;
+  z-index: 1000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: var(--space-md);
+  background-color: rgba(5, 5, 5, 0.95);
+}
+
+.age-gate[hidden] {
+  display: none;
+}
+
+.age-gate__card {
+  width: 100%;
+  max-width: 28rem;
+  background-color: var(--bg-surface);
+  border: 1px solid var(--border-subtle);
+  padding: var(--space-xl) var(--space-lg);
+  text-align: center;
+}
+
+.age-gate__title {
+  font-family: var(--font-display);
+  font-size: var(--type-h2);
+  font-weight: 600;
+  line-height: var(--lh-h2);
+  margin-bottom: var(--space-sm);
+  color: #ffffff;
+}
+
+.age-gate__copy {
+  font-size: var(--type-body);
+  color: var(--text-secondary);
+  margin-bottom: var(--space-lg);
+  max-width: none;
+}
+
+.age-gate__actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-sm);
+  justify-content: center;
+}
+
+/* --------------------------------------------------------------------------
+   14. Placeholder blocks (until real photography)
+   -------------------------------------------------------------------------- */
+.placeholder {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-xs);
+  background: #111111;
+  color: var(--accent-copper);
+}
+
+.placeholder__icon {
+  width: 2.5rem;
+  height: 2.5rem;
+  color: var(--accent-copper);
+  opacity: 0.5;
+}
+
+.placeholder__caption {
+  font-size: var(--type-small);
+  color: var(--text-secondary);
+}
+
+/* --------------------------------------------------------------------------
+   15. Animation keyframes + utility classes
+   -------------------------------------------------------------------------- */
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(12px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.fade-in-up {
+  animation: fadeInUp var(--duration-slow) var(--ease-out) both;
+}
+
+.scroll-reveal {
+  opacity: 0;
+  transform: translateY(12px);
+  transition:
+    opacity var(--duration-base) var(--ease-out),
+    transform var(--duration-base) var(--ease-out);
+  will-change: opacity, transform;
+}
+
+.scroll-reveal.is-visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* Stagger: Devon sets --reveal-index per item, max 80ms */
+.scroll-reveal[style*="--reveal-index"] {
+  transition-delay: calc(var(--reveal-index, 0) * 80ms);
+}
+
+/* --------------------------------------------------------------------------
+   16. prefers-reduced-motion
+   -------------------------------------------------------------------------- */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+
+  html {
+    scroll-behavior: auto;
+  }
+
+  .scroll-reveal {
+    opacity: 1;
+    transform: none;
+    transition: none;
+  }
+
+  .fade-in-up {
+    animation: none;
+  }
+
+  .btn:active,
+  .btn-primary:hover,
+  .btn-secondary:hover {
+    transform: none;
+  }
+
+  .cigar-card:hover {
+    transform: none;
+  }
+}

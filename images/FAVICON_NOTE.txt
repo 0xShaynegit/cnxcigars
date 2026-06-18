@@ -1,0 +1,18 @@
+FAVICON - PLACEHOLDER NOTE (for Iris / Devon before ship)
+=========================================================
+
+The template head references three favicon assets that do NOT yet exist.
+Create them when the brand mark / logo is finalised. Keep them on-brand:
+charcoal mark on cream, or a single copper/gold line-icon (cigar or leaf).
+
+Required files (project root + images/):
+  1. favicon.ico        -> project ROOT. Multi-size ICO (16, 32, 48). Legacy fallback.
+  2. images/favicon.svg  -> scalable modern favicon. Preferred by current browsers.
+  3. images/apple-touch-icon.png -> 180x180 PNG. iOS home screen.
+
+Also referenced (Open Graph / Twitter share image):
+  4. images/og-default.jpg -> 1200x630. Warm lounge photograph once the shoot is done.
+     Until then, an on-brand cream/charcoal block with the CNX Cigars wordmark.
+
+These are intentionally blank placeholders so the build stays portable and
+nothing 404s silently once added. Quinn checks favicon presence at the ship gate.

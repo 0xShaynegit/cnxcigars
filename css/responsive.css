@@ -1,0 +1,153 @@
+/* ==========================================================================
+   CNX Cigars Lounge - Responsive Layer (responsive.css)
+   Mobile-first base lives in style.css. This layer scales up.
+   Breakpoints: 320 (base), 768 (tablet), 1024 (desktop), 1440 (wide).
+   Built by Jules from Mira's design-brief.md.
+   ========================================================================== */
+
+/* --------------------------------------------------------------------------
+   Catalogue grid (Devon places .cigar-card children inside .cigar-grid)
+   2 col mobile (default), 3 col tablet, 4 col desktop.
+   -------------------------------------------------------------------------- */
+.cigar-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);   /* mobile: 2 col */
+  gap: var(--space-md);
+}
+
+/* Generic content grid Devon can reuse for feature/section layouts */
+.grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: var(--space-lg);
+}
+
+/* --------------------------------------------------------------------------
+   Mobile base (under 768px): hamburger nav.
+   Nav list collapses into a panel toggled by .nav-toggle.
+   JS toggles aria-expanded on .nav-toggle and the [data-nav] open state.
+   No-JS safe: nav remains reachable because panel is visible when body lacks
+   the .js class (Devon adds .js to <html> as the first script step).
+   -------------------------------------------------------------------------- */
+.nav-toggle {
+  display: inline-flex;     /* visible on mobile */
+}
+
+.js .site-nav {
+  position: absolute;
+  top: 100%;
+  left: 0;
+  right: 0;
+  background-color: var(--color-cream);
+  box-shadow: var(--shadow-header);
+  max-height: 0;
+  overflow: hidden;
+  transition: max-height var(--duration-base) var(--ease-standard);
+}
+
+.js .site-nav[data-open="true"] {
+  max-height: 24rem;
+}
+
+.js .site-nav__list {
+  flex-direction: column;
+  align-items: stretch;
+  gap: 0;
+  padding: var(--space-sm) var(--container-pad-x) var(--space-md);
+}
+
+.js .site-nav__link {
+  display: block;
+  min-height: 3rem;          /* 48px touch target */
+  display: flex;
+  align-items: center;
+  padding-block: var(--space-sm);
+  border-bottom: 1px solid var(--color-neutral-light);
+}
+
+/* Touch targets: 48x48 minimum on interactive elements */
+.site-nav__link,
+.footer-links a,
+.footer-social a,
+.btn,
+.nav-toggle {
+  min-height: 3rem;
+}
+
+/* --------------------------------------------------------------------------
+   Tablet (>= 768px)
+   -------------------------------------------------------------------------- */
+@media (min-width: 768px) {
+  /* Restore inline desktop-style nav, hide hamburger */
+  .nav-toggle {
+    display: none;
+  }
+
+  .js .site-nav {
+    position: static;
+    background-color: transparent;
+    box-shadow: none;
+    max-height: none;
+    overflow: visible;
+  }
+
+  .js .site-nav__list {
+    flex-direction: row;
+    align-items: center;
+    gap: var(--space-lg);
+    padding: 0;
+  }
+
+  .js .site-nav__link {
+    display: inline-flex;
+    min-height: auto;
+    padding-block: var(--space-xs);
+    border-bottom: none;
+  }
+
+  /* Catalogue: 3 col tablet */
+  .cigar-grid {
+    grid-template-columns: repeat(3, 1fr);
+    gap: var(--space-lg);
+  }
+
+  .grid--2 {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .grid--3 {
+    grid-template-columns: repeat(3, 1fr);
+  }
+
+  .site-footer__grid {
+    grid-template-columns: 2fr 1fr 1fr;
+    gap: var(--space-xl);
+  }
+}
+
+/* --------------------------------------------------------------------------
+   Desktop (>= 1024px)
+   -------------------------------------------------------------------------- */
+@media (min-width: 1024px) {
+  /* Catalogue: 4 col desktop */
+  .cigar-grid {
+    grid-template-columns: repeat(4, 1fr);
+  }
+
+  .grid--4 {
+    grid-template-columns: repeat(4, 1fr);
+  }
+
+  .site-footer__grid {
+    grid-template-columns: 2fr 1fr 1fr 1.5fr;   /* NAP, quick links, hours, newsletter */
+  }
+}
+
+/* --------------------------------------------------------------------------
+   Wide (>= 1440px) - hold the content max-width, let whitespace breathe
+   -------------------------------------------------------------------------- */
+@media (min-width: 1440px) {
+  :root {
+    --container-pad-x: 3rem;
+  }
+}
