@@ -1,0 +1,9 @@
+{
+  "$schema": "node_modules/wrangler/config-schema.json",
+  "name": "cnxcigars",
+  "compatibility_date": "2026-06-18",
+  "assets": {
+    "directory": ".",
+    "exclude": ["node_modules", ".git", ".claude", "_archive", "team"]
+  }
+}
